@@ -11,6 +11,8 @@ services:
       context: ./requirements/nginx/. # the location of the dockerfile of nginx
     ports:
       - "443:443"
+    networks:
+      - inceptionNetwork
     env_file:
       - .env
 
@@ -19,6 +21,8 @@ services:
     image: mariadbImage
     build:
       context: ./requirements/mariadb/.
+    networks:
+      - inceptionNetwork
     env_file:
       - .env
   
@@ -27,5 +31,7 @@ services:
     image: wordpressImage
     build:
       context: ./requirements/wordpress/.
+    networks:
+      - inceptionNetwork
     env_file:
       - .env
