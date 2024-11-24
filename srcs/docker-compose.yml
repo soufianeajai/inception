@@ -1,37 +1,56 @@
 
 networks:
-  inception:
-    name: inceptionNetwork
+  inceptionNetwork:
+    driver: bridge
+volumes:
+  wordpress-vol:
+  mariadb-vol:
+
 
 services:
   nginx:
-    container_name: nginxContainer
-    image: nginxImage  # the name of the image of nginx we gonna build
+    container_name: nginx
+    image: nginx  # the name of the image of nginx we gonna build
     build:
       context: ./requirements/nginx/. # the location of the dockerfile of nginx
+    depends_on:
+      - wordpress
     ports:
       - "443:443"
+      - "80:80"
     networks:
       - inceptionNetwork
+    volumes:
+      - wordpress-vol:/var/www/html:ro
     env_file:
       - .env
+    restart: always
 
   mariadb:
-    container_name: mariadbContainer
-    image: mariadbImage
+    container_name: mariadb
+    image: mariadb
     build:
       context: ./requirements/mariadb/.
     networks:
       - inceptionNetwork
+    volumes:
+      - mariadb-vol:/var/lib/mysql
     env_file:
       - .env
+    restart: always
   
   wordpress:
-    container_name: wordpressContainer
-    image: wordpressImage
+    container_name: wordpress
+    image: wordpress
     build:
       context: ./requirements/wordpress/.
     networks:
       - inceptionNetwork
+    volumes:
+      - wordpress-vol:/var/www/html:rw
+      - mariadb-vol:/var/lib/mysql:rw
     env_file:
       - .env
+    restart: always
+    depends_on:
+      - mariadb

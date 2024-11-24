@@ -4,21 +4,26 @@ PROJECT_NAME = inception
 all: build up
 
 build:
-	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) build
+	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) build
 
 up:
-	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) up -d
+	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) up -d
 
 down:
-	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) down
+	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) down
 
 restart: down up
 
 clean:
-	down -v --remove-orphans
+	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) down -v --remove-orphans
 
 logs:
-	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) logs -f
+	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) logs -f
 
 ps:
-	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) ps
+	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) ps
+
+fclean: down
+	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) down --rmi all -v --remove-orphans
+	docker system prune -af
+
