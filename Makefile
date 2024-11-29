@@ -26,4 +26,3 @@ ps:
 fclean: down
 	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) down --rmi all -v --remove-orphans
 	docker system prune -af
-

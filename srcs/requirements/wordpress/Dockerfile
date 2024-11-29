@@ -1,14 +1,15 @@
-FROM debian:bullseye
+FROM alpine:3.19
 
 # Install PHP 7.4 and necessary extensions
-RUN apt-get update && apt-get install -y \
-    php7.4-fpm php7.4-mysql php7.4-xml php7.4-mbstring php7.4-zip php7.4-curl \
-    wget unzip && apt-get clean
+RUN apk update && apk add --no-cache \
+    php7 php7-fpm php7-mysqli php7-xml php7-mbstring php7-zip php7-curl \
+    wget unzip && \
+    apk del php7-cli # Remove php-cli to reduce the image size
 
 # Configure PHP-FPM
 RUN mkdir -p /run/php && \
-    sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf && \
-    sed -i 's/;clear_env = no/clear_env = no/g' /etc/php/7.4/fpm/pool.d/www.conf
+    sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php7/php-fpm.d/www.conf && \
+    sed -i 's/;clear_env = no/clear_env = no/g' /etc/php7/php-fpm.d/www.conf
 
 # Create the necessary directory and download WordPress
 RUN mkdir -p /var/www/html && \
@@ -28,4 +29,4 @@ RUN chown www-data:www-data /var/www/html/wp-config.php
 EXPOSE 9000
 
 # Start php-fpm service
-CMD ["php-fpm7.4", "-F"]
+CMD ["php-fpm7", "-F"]

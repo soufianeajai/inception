@@ -1,12 +1,16 @@
-FROM debian:bullseye
+FROM alpine:3.19
 
-RUN apt-get update && apt-get install -y mariadb-server \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /var/run/mysqld \
-    && chown -R mysql:mysql /var/run/mysqld \
-    && chmod 777 /var/run/mysqld
-    
+RUN apk update && apk add --no-cache mariadb && mkdir -p /etc/mysql/mariadb.conf.d /var/lib/mysql && \
+    chown -R mysql:mysql /var/lib/mysql /etc/mysql
+
+COPY conf/my.cnf /etc/mysql/my.cnf
+
+COPY db_startup.sh /db_startup.sh
+
+RUN chmod +x /db_startup.sh
 
 EXPOSE 3306
 
-CMD ["mysqld", "--bind-address=0.0.0.0"]
+ENTRYPOINT ["db_startup.sh"]
+
+CMD ["mysqld"]
