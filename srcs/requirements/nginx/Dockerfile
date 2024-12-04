@@ -6,15 +6,15 @@ RUN apk update && apk add --no-cache \
     rm -rf /var/cache/apk/*
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
-
-COPY conf/default.conf /etc/nginx/http.d/default.conf
-
+COPY conf/default.conf /etc/nginx/conf.d/default.conf
 COPY tools/generate_ssl.sh /usr/local/bin/generate_ssl.sh
 
-RUN chmod +x /usr/local/bin/generate_ssl.sh
-
-RUN /usr/local/bin/generate_ssl.sh
+RUN mkdir -p /var/www/html \
+    && chmod +x /usr/local/bin/generate_ssl.sh 
 
 EXPOSE 443
 
-CMD ["nginx", "-g", "daemon off;"]
+COPY tools/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]
