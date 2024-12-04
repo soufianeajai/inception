@@ -26,37 +26,21 @@
 // a helper function to lookup "env_FILE", "env", then fallback
 if (!function_exists('getenv_docker')) {
 	// https://github.com/docker-library/wordpress/issues/588 (WP-CLI will load this file 2x)
-	function getenv_docker($env, $default) {
+	function getenv_docker($env) {
 		if ($fileEnv = getenv($env . '_FILE')) {
 			return rtrim(file_get_contents($fileEnv), "\r\n");
 		}
 		else if (($val = getenv($env)) !== false) {
 			return $val;
 		}
-		else {
-			return $default;
-		}
 	}
 }
 
-// ** Database settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define( 'DB_NAME', getenv_docker('WORDPRESS_DB_NAME', 'wordpress') );
+define( 'DB_NAME', getenv_docker('MYSQL_DATABASE') );
+define( 'DB_USER', getenv_docker('MYSQL_USER') );
+define( 'DB_PASSWORD', getenv_docker('MYSQL_PASSWORD') );
+define( 'DB_HOST', getenv_docker('WP_DB_HOST') );
 
-/** Database username */
-define( 'DB_USER', getenv_docker('WORDPRESS_DB_USER', 'sajaite') );
-
-/** Database password */
-define( 'DB_PASSWORD', getenv_docker('WORDPRESS_DB_PASSWORD', '1234') );
-
-/**
- * Docker image fallback values above are sourced from the official WordPress installation wizard:
- * https://github.com/WordPress/WordPress/blob/1356f6537220ffdc32b9dad2a6cdbe2d010b7a88/wp-admin/setup-config.php#L224-L238
- * (However, using "example username" and "example password" in your database is strongly discouraged.  Please use strong, random credentials!)
- */
-
-/** Database hostname */
-define( 'DB_HOST', getenv_docker('WORDPRESS_DB_HOST', 'mariadb:3306') );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', getenv_docker('WORDPRESS_DB_CHARSET', 'utf8') );
@@ -140,5 +124,5 @@ require_once ABSPATH . 'wp-settings.php';
 
 /** Enable Redis Object Cache */
 define('WP_CACHE', true); // Enable WordPress cache
-define('REDIS_HOST', getenv_docker('REDIS_HOST', 'redis:6379'));
-define('REDIS_PASSWORD', getenv_docker('REDIS_PASSWORD', '1234'));
+define('REDIS_HOST', getenv_docker('REDIS_HOST'));
+define('REDIS_PASSWORD', getenv_docker('REDIS_PASSWORD'));
