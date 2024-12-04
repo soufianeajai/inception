@@ -1,16 +1,13 @@
 FROM alpine:3.19
 
-RUN apk update && apk add --no-cache mariadb && mkdir -p /etc/mysql/mariadb.conf.d /var/lib/mysql && \
-    chown -R mysql:mysql /var/lib/mysql /etc/mysql
+RUN apk update && apk add --no-cache mariadb
 
-COPY conf/my.cnf /etc/mysql/my.cnf
+COPY conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 
-COPY db_startup.sh /db_startup.sh
+COPY setup.sh /setup.sh
 
-RUN chmod +x /db_startup.sh
+RUN chmod +x /setup.sh
 
 EXPOSE 3306
 
-ENTRYPOINT ["db_startup.sh"]
-
-CMD ["mysqld"]
+ENTRYPOINT ["/setup.sh"]
