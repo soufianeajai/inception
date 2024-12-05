@@ -6,7 +6,7 @@ RUN mkdir -p /var/www/html/wordpress
 
 COPY tools/setup.sh /setup.sh
 
-COPY tools/wp-config.php /var/www/html/wordpress/wp-config.php
+COPY conf/wp-config.php /var/www/html/wordpress/wp-config.php
 
 EXPOSE 9000
 

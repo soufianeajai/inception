@@ -7,7 +7,7 @@ build:
 	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) build
 
 up:
-	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) up -d
+	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) up
 
 down:
 	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) down

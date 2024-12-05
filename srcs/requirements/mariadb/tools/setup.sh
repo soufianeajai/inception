@@ -1,15 +1,19 @@
 #!/bin/sh
+set -e
 
+# Create necessary directories with correct permissions
 mkdir -p /var/run/mysqld /var/lib/mysql
 chown -R mysql:mysql /var/run/mysqld
 chown -R mysql:mysql /var/lib/mysql
-set -e
+chmod -R 755 /var/lib/mysql
 
+# Initialize database if not already initialized
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "Initializing MariaDB data directory..."
-    /usr/bin/mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+    mariadb-install-db --user=mysql --datadir=/var/lib/mysql --auth-root-authentication-method=normal
 fi
 
+# Run bootstrap to set up initial database configuration
 mysqld --user=mysql --bootstrap <<EOSQL
 USE mysql;
 FLUSH PRIVILEGES;
@@ -20,8 +24,6 @@ GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%';
 FLUSH PRIVILEGES;
 EOSQL
 
-echo "MySQL initialization script completed successfully..."
+kill $(cat /var/run/mysqld/mysqld.pid)
 
 mysqld --user=mysql --console
-
-echo "MySQL started successfully..."
