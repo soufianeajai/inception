@@ -43,10 +43,10 @@ define( 'DB_HOST', getenv_docker('WP_DB_HOST') );
 
 
 /** Database charset to use in creating database tables. */
-define( 'DB_CHARSET', getenv_docker('WORDPRESS_DB_CHARSET', 'utf8') );
+define( 'DB_CHARSET', getenv_docker('WORDPRESS_DB_CHARSET') );
 
 /** The database collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', getenv_docker('WORDPRESS_DB_COLLATE', '') );
+define( 'DB_COLLATE', getenv_docker('WORDPRESS_DB_COLLATE') );
 
 /**#@+
  * Authentication unique keys and salts.
@@ -59,14 +59,14 @@ define( 'DB_COLLATE', getenv_docker('WORDPRESS_DB_COLLATE', '') );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         getenv_docker('WORDPRESS_AUTH_KEY',         'put your unique phrase here') );
-define( 'SECURE_AUTH_KEY',  getenv_docker('WORDPRESS_SECURE_AUTH_KEY',  'put your unique phrase here') );
-define( 'LOGGED_IN_KEY',    getenv_docker('WORDPRESS_LOGGED_IN_KEY',    'put your unique phrase here') );
-define( 'NONCE_KEY',        getenv_docker('WORDPRESS_NONCE_KEY',        'put your unique phrase here') );
-define( 'AUTH_SALT',        getenv_docker('WORDPRESS_AUTH_SALT',        'put your unique phrase here') );
-define( 'SECURE_AUTH_SALT', getenv_docker('WORDPRESS_SECURE_AUTH_SALT', 'put your unique phrase here') );
-define( 'LOGGED_IN_SALT',   getenv_docker('WORDPRESS_LOGGED_IN_SALT',   'put your unique phrase here') );
-define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       'put your unique phrase here') );
+define( 'AUTH_KEY',         getenv_docker('WORDPRESS_AUTH_KEY') );
+define( 'SECURE_AUTH_KEY',  getenv_docker('WORDPRESS_SECURE_AUTH_KEY') );
+define( 'LOGGED_IN_KEY',    getenv_docker('WORDPRESS_LOGGED_IN_KEY') );
+define( 'NONCE_KEY',        getenv_docker('WORDPRESS_NONCE_KEY') );
+define( 'AUTH_SALT',        getenv_docker('WORDPRESS_AUTH_SALT') );
+define( 'SECURE_AUTH_SALT', getenv_docker('WORDPRESS_SECURE_AUTH_SALT') );
+define( 'LOGGED_IN_SALT',   getenv_docker('WORDPRESS_LOGGED_IN_SALT') );
+define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT') );
 // (See also https://wordpress.stackexchange.com/a/152905/199287)
 
 /**#@-*/
@@ -122,7 +122,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
 
-/** Enable Redis Object Cache */
+/* Enable Redis Object Cache 
 define('WP_CACHE', true); // Enable WordPress cache
 define('REDIS_HOST', getenv_docker('REDIS_HOST'));
-define('REDIS_PASSWORD', getenv_docker('REDIS_PASSWORD'));
+define('REDIS_PASSWORD', getenv_docker('REDIS_PASSWORD'));*/

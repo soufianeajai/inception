@@ -10,7 +10,7 @@ COPY conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 COPY tools/setup.sh /setup.sh
 
 RUN chmod +x /setup.sh
-RUN chown -R mysql:mysql /setup.sh
+
 EXPOSE 3306
 
-ENTRYPOINT ["/setup.sh"]
+CMD ["/setup.sh"]

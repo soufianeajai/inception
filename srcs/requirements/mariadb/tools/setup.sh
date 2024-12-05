@@ -7,6 +7,8 @@ chown -R mysql:mysql /var/run/mysqld
 chown -R mysql:mysql /var/lib/mysql
 chmod -R 755 /var/lib/mysql
 
+sed -i 's/#bind-address=0.0.0.0/bind-address=0.0.0.0/g' /etc/my.cnf.d/mariadb-server.cnf
+
 # Initialize database if not already initialized
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "Initializing MariaDB data directory..."
@@ -24,6 +26,5 @@ GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%';
 FLUSH PRIVILEGES;
 EOSQL
 
-kill $(cat /var/run/mysqld/mysqld.pid)
-
-mysqld --user=mysql --console
+# Start MariaDB server in foreground
+exec mysqld --user=mysql

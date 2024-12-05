@@ -20,6 +20,6 @@ wp redis enable --allow-root
 
 wp plugin update --all --allow-root
 
-chown -R www-data:www-data /var/www/html/wordpress
+chown -R www-data:www-data /var/www/html
 
 /usr/sbin/php-fpm83
