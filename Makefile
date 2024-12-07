@@ -7,7 +7,7 @@ build:
 	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) build
 
 up:
-	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) up
+	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) up -d
 
 down:
 	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) down
@@ -26,3 +26,4 @@ ps:
 fclean: down
 	$(DOCKER_COMPOSE) -f srcs/docker-compose.yml -p $(PROJECT_NAME) down --rmi all -v --remove-orphans
 	docker system prune -af
+

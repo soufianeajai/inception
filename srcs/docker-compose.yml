@@ -51,3 +51,16 @@ services:
     restart: always
     depends_on:
       - mariadb
+
+  redis:
+    container_name: redis
+    image: redis
+    build: 
+      context: ./requirements/bonus/redis/.
+    networks:
+      - inceptionNetwork
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - wordpress
