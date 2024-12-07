@@ -1,13 +1,13 @@
 FROM alpine:3.19
 
-RUN apk update && apk add --no-cache php php-fpm php-mysqli php-xml php-mbstring php-zip php-curl php-phar wget unzip
+RUN apk update && apk add --no-cache php php-fpm php-mysqli php-xml php-mbstring php-zip php-curl php-phar wget unzip mariadb-client
 
-RUN mkdir -p /var/www/html/wordpress
+RUN mkdir -p /var/www/html
 
-COPY tools/setup.sh /setup.sh
+COPY tools/setup-wordpress.sh /setup-wordpress.sh
 
-COPY conf/wp-config.php /var/www/html/wordpress/wp-config.php
+RUN chmod +x /setup-wordpress.sh
 
 EXPOSE 9000
 
-CMD ["/setup.sh"]
+CMD ["/setup-wordpress.sh"]

@@ -1,16 +1,7 @@
 FROM alpine:3.19
 
-RUN apk update && apk add --no-cache mariadb
+RUN apk update && apk upgrade && apk add mariadb mariadb-client
+        
+COPY tools/setup-mariadb.sh /setup-mariadb.sh
 
-RUN mkdir -p /var/lib/mysql /var/run/mysqld \
-    && chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
-
-COPY conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
-
-COPY tools/setup.sh /setup.sh
-
-RUN chmod +x /setup.sh
-
-EXPOSE 3306
-
-CMD ["/setup.sh"]
+ENTRYPOINT ["sh", "/setup-mariadb.sh"]
