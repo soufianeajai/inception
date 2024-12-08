@@ -59,6 +59,8 @@ services:
       context: ./requirements/bonus/redis/.
     networks:
       - inceptionNetwork
+    volumes:
+      - wordpress-vol:/var/www/html:rw
     env_file:
       - .env
     restart: always
