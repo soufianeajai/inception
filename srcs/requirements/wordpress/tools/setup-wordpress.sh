@@ -27,4 +27,6 @@ EOL
 
 wp plugin install redis-cache --activate --allow-root
 
+# wp redis enable --allow-root --network --path=/var/www/html     when i add this line it gives me an error : Error establishing a Redis connection
+# wc redis status in path var/www/html gives me : Satatus : connected
 exec /usr/sbin/php-fpm82 -F
