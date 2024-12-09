@@ -21,7 +21,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
     GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%';
     FLUSH PRIVILEGES;
-    " | /usr/bin/mysqld --user=mysql --bootstrap
+    " | /usr/bin/mysqld --user=mysql --bootstrap 
 fi
 
 sed -i "s|skip-networking|# skip-networking|g" /etc/my.cnf.d/mariadb-server.cnf
