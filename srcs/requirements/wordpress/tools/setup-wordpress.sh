@@ -24,4 +24,6 @@ wp plugin install redis-cache --activate --allow-root
 
 wp redis enable --allow-root   when i add this line it gives me an error : Error establishing a Redis connection
 
+chown -R nobody:nobody /var/www
+
 exec /usr/sbin/php-fpm82 -F
