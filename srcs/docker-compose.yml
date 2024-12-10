@@ -3,8 +3,23 @@ networks:
     driver: bridge
 volumes:
   wordpress-vol:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/sajaite/data/wordpress
+      o: bind
   mariadb-vol:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/sajaite/data/mariadb
+      o: bind
   portainer-vol:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/sajaite/data/portainer
+      o: bind
 
 services:
   nginx:
@@ -104,6 +119,6 @@ services:
       - inceptionNetwork
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer-vol:/var/lib/portainer
+      - portainer-vol:/data
     restart: always
 
