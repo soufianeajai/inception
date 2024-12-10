@@ -22,7 +22,7 @@ wp user create "${WP_USER}" "${WP_USER_EMAIL}" --role=author --user_pass="${WP_U
 
 wp plugin install redis-cache --activate --allow-root
 
-wp redis enable --allow-root   when i add this line it gives me an error : Error establishing a Redis connection
+wp redis enable --allow-root
 
 chown -R nobody:nobody /var/www
 
