@@ -3,23 +3,8 @@ networks:
     driver: bridge
 volumes:
   wordpress-vol:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/sajaite/data/wordpress
   mariadb-vol:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/sajaite/data/mariadb
   portainer-vol:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/sajaite/data/portainer
 
 services:
   nginx:
@@ -90,6 +75,7 @@ services:
       - .env
     volumes:
       - wordpress-vol:/ftp:rw
+    privileged: true
     ports:
       - "21:21"
       - "21100-21110:21100-21110"
@@ -121,5 +107,4 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer-vol:/data
     restart: always
-
 

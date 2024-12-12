@@ -15,6 +15,7 @@ echo "pasv_max_port=21110" >> /etc/vsftpd/vsftpd.conf
 echo "userlist_enable=YES" >> /etc/vsftpd/vsftpd.conf
 echo "userlist_file=/etc/vsftpd/vsftpd.userlist" >> /etc/vsftpd/vsftpd.conf
 echo "userlist_deny=NO" >> /etc/vsftpd/vsftpd.conf
+echo "seccomp_sandbox=NO" >> /etc/vsftpd/vsftpd.conf
 
 
 echo "${FTP_USER}" > /etc/vsftpd/vsftpd.userlist
