@@ -11,7 +11,7 @@ if [ -f "$CERT_FILE" ] || [ -f "$KEY_FILE" ]; then
     exit 1
 fi
 
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $KEY_FILE -out $CERT_FILE -subj "/C=MA/CN=sajaite.42.fr" > /dev/null 2>&1
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $KEY_FILE -out $CERT_FILE -subj "/C=MA/CN="${DOMAIN_NAME}"" > /dev/null 2>&1
 
 chmod 600 $KEY_FILE
 chmod 644 $CERT_FILE
