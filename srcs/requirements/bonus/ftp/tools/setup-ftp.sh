@@ -18,11 +18,3 @@ chown -R ${FTP_USER}:${FTP_USER} /ftp
 
 echo "Starting FTP server ..."
 /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
-
-
-
-
-
-
-
-
